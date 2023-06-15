@@ -2,6 +2,6 @@
 $server="localhost";
 $username="root";
 $password="";
-$database="categories";
+$database="foroum";
 $conn=mysqli_connect($server,$username,$password,$database);
 ?>
