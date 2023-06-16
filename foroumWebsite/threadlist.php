@@ -88,12 +88,13 @@
             $threadtitle = $row['threadtitle'];
             $threaddesc = $row['threaddescription'];
             $threadid = $row['threadid'];
+            $thread_time=$row['timestamp'];
             echo '
         <div class="d-flex align-items-center my-3">
             <img src="partials/images/userdefault.png" width="10%" alt="...">
             <div class="flex-grow-1">
                 <h5 class="mt-0"><a class="text-danger" href="thread.php?threadid=' . $threadid . '">' . $threadtitle . '</a></h5>
-                ' . $threaddesc . '
+                ' . $threaddesc . '<br><p class="font-weight-bold my-0">Anonymous User at '.$thread_time.'</p>
             </div>
         </div>';
         }

@@ -41,4 +41,10 @@ echo '<nav class="navbar navbar-expand-lg bg-light">
 </nav>';
 include 'partials/_loginModal.php';
 include 'partials/_signupModal.php';
+if(isset($_GET['signupsuccess'])&& $_GET['signupsuccess']==true){
+echo '  <div class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Success!</strong> You haev successfully singed up to the Foroums Website.
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>';
+}
 ?>

@@ -28,9 +28,27 @@
         $threaddesc=$row['threaddescription'];   
     }
     ?>
+     <?php
+    $showAlert=false;
+    $method = $_SERVER['REQUEST_METHOD'];
+    if($method=="POST"){
+        $comment=$_POST['desc'];
+        $comment_sql="INSERT INTO `comments`(`comment_content`,`thread_id`,`commentby`) VALUES ('$comment','$id','0')";
+        $result=mysqli_query($conn,$comment_sql);
+        if($result){
+            $showAlert=true;
+        }
+        if($showAlert){
+            echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!!</strong> Your comment has been added.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>';
+        }
+    };
+    ?>
     <div class="container my-3">
         <div class="container jubotron">
-            <h1 class="display-4"><?php echo $threadtitle;?> forums.</h1>
+            <h1 class="display-4"><?php echo $threadtitle;?></h1>
             <p class="lead"><?php echo $threaddesc; ?></p>
             <p><b>Posted by: Aditya</b></p>
             <hr class="my-4">
@@ -41,26 +59,33 @@
         </div>
     </div>
     <div class="container">
+        <h1 class="text-center">Post a Comment.!</h1>
+        <form action="<?php echo $_SERVER['REQUEST_URI']?>" method="post">
+            <div class="form-floating my-3">
+                <textarea class="form-control" id="desc" name="desc"></textarea>
+                <label for="floatingTextarea" class="text-muted">Type your comment</label>
+            </div>
+            <button type="submit" class="btn btn-outline-danger">Post Comment</button>
+        </form>
+    </div>
+    <div class="container">
         <h1 class="text-center">Discussions</h1>
-    <!-- <?php 
+    <?php 
     $id=$_GET['threadid'];
-    $sql="SELECT * FROM `threads` WHERE `threadid`=$id";
+    $sql="SELECT * FROM `comments` WHERE `thread_id`=$id";
     $result=mysqli_query($conn,$sql);
     $noResult=true;
-    if(!$result){
-        echo "Error";
-    }
     while($row=mysqli_fetch_assoc($result)){
-        $threadtitle=$row['threadtitle'];
-        $noResult=false;
-        $threaddesc=$row['threaddescription'];    
-        
+        $commentid=$row['comment_id'];
+        $commentcontent=$row['comment_content'];
+        $comment_time=$row['comment_time'];
+        $noResult=false;       
         echo '
         <div class="d-flex align-items-center my-3">
             <img src="partials/images/userdefault.png" width="10%" alt="...">
             <div class="flex-grow-1">
-                <h5 class="mt-0"><a class="text-danger" href="thread.php?threadid='.$threadid.'">'.$threadtitle.'</a></h5>
-                '.$threaddesc.'
+            <p class="font-weight-bold my-0">Anonymous User at '.$comment_time.'</p>
+                '.$commentcontent.'
             </div>
         </div>'; 
     }
@@ -73,7 +98,7 @@
     </div>
 </div>';
     }
-        ?> -->
+        ?>
     </div>
     <?php include 'partials/_footer.php'; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
