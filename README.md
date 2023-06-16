@@ -1,2 +1,2 @@
 # ForoumWebsite
-Creating a Foroum website using PHP techniques and bootstrao.
+Creating a Foroum website using PHP techniques and bootstrap.
